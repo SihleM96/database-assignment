@@ -1,6 +1,10 @@
 from tkinter import messagebox
 from tkinter import *
 import mysql.connector
+from datetime import datetime
+now = datetime.now()
+formatted = now.strftime('%Y-%m-%d %H:%M:%S')
+
 
 # Connect Database
 mydb = mysql.connector.connect(host="127.0.0.1",
@@ -17,6 +21,9 @@ def verify():
     users = user_entry.get()
     passs = pass_entry.get()
     sql = "select * from users where username = %s and password = %s"
+    #sql = "INSERT INTO login (id, login_time) VALUES (%s, %s, %s)"
+    #val = (users, passs, formatted)
+    #mycursor.execute(sql, val)
     mycursor.execute(sql, [users, passs])
     results = mycursor.fetchall()
     if results:
@@ -28,9 +35,9 @@ def verify():
 
 
 def logged():
-    messagebox.showinfo("LOG MESSAGE", "You have successfully logged")
+    messagebox.showinfo("LOG MESSAGE", "Enter Contact Details")
     import contact
-    root.destroy()
+    root.withdraw()
 
 
 # if login details are incorrect
@@ -38,6 +45,13 @@ def failed():
     messagebox.showinfo("LOG MESSAGE", "Error, try again")
     user_entry.delete(0, END)
     pass_entry.delete(0, END)
+
+
+# register function
+
+def admin_bt():
+    import admin
+    root.withdraw()
 
 
 # Interface
@@ -66,7 +80,7 @@ pass_entry.place(x=300, y=250, width=120)
 login_btn = Button(root, text='Login', bg='green yellow', fg='grey8', command=verify)
 login_btn.place(x=200, y=300, width=80)
 
-adm_btn = Button(root, text='Admin', bg='green yellow', fg='grey8', command='')
+adm_btn = Button(root, text='Admin', bg='green yellow', fg='grey8', command=admin_bt)
 adm_btn.place(x=320, y=300, width=80)
 
 root.mainloop()

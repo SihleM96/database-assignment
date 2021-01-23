@@ -17,10 +17,17 @@ my_cursor = dtb_connect.cursor()
 #dtb_connect .commit()
 #
 
+
 def sub():
-    messagebox.showinfo("LOG MESSAGE", "Phone number captured")
-    import register
+    messagebox.showinfo("LOG MESSAGE", "Signed In, Enjoy your day!")
     root.destroy()
+
+
+def log_out():
+    messagebox.showinfo("LOG MESSAGE", "Signed Out")
+    root.withdraw()
+
+
 # Interface
 
 root = Tk()
@@ -34,8 +41,11 @@ lbl_password.place(x=150, y=100)
 password = Entry(root, width=45)
 password.place(x=140, y=180, width=120)
 
-reg_btn = Button(root, text='Submit', bg='green yellow', fg='grey8', command=sub)
-reg_btn.place(x=160, y=240, width=80)
+reg_btn = Button(root, text='Sign In', bg='green yellow', fg='grey8', command=sub)
+reg_btn.place(x=100, y=240, width=80)
+
+logout_btn = Button(root, text='Sign Out', bg='green yellow', fg='grey8', command=log_out)
+logout_btn.place(x=220, y=240, width=80)
 
 root.mainloop()
 
